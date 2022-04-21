@@ -1,0 +1,28 @@
+table.taxonomies td {
+    width: 50%;
+    vertical-align: top;
+}
+table.taxonomies td.first {
+    width: 48%;
+    padding: 0 2% 0 0;
+}
+table.taxonomies td label {
+    display: block;
+    font-weight: bold;
+}
+table.taxonomies p {
+    margin: 0 0 15px 0;
+    font-size: 12px;
+}
+table.taxonomies input,
+table.taxonomies select,
+table.taxonomies textarea {
+    width: 100%;
+}
+table.taxonomies input[type='checkbox'] {
+	width: auto;
+}
+table.taxonomies label.checkbox {
+    display: inline;
+    font-weight: normal;
+}
