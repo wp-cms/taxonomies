@@ -1,9 +1,8 @@
 <?php
 
-namespace Core\Taxonomies;
+namespace plugin\taxonomies;
 
-add_action( 'init', 'Core\Taxonomies\register_taxonomies' );
-
+add_action( 'init', 'plugin\taxonomies\register_taxonomies' );
 
 /**
  * Retrieve all taxonomies definitions created by the user and set them up
@@ -15,7 +14,7 @@ function register_taxonomies() {
     $taxonomies = array();
 
     // Query custom taxonomies
-    $get_taxonomies_query    = array(
+    $get_taxonomies_query   = array(
         'numberposts'      => -1,
         'post_type'        => 'custom_taxonomies',
         'post_status'      => 'publish',
@@ -60,26 +59,37 @@ function register_taxonomies() {
                 'taxonomy_builtin_taxonomies'  => unserialize( $taxonomy_post_types ),
             );
 
-            // register custom taxonomies
+            // Register custom taxonomies
             if ( is_array( $taxonomies ) ) {
                 foreach ( $taxonomies as $taxonomy ) {
 
                     $labels = array(
-                        'name'                       => _x( $taxonomy['taxonomy_label'], 'taxonomy general name', 'taxonomies' ),
-                        'singular_name'              => _x( $taxonomy['taxonomy_singular_name'], 'taxonomy singular name' ),
-                        'search_items'               => __( 'Search ' . $taxonomy['taxonomy_label'], 'taxonomies' ),
-                        'popular_items'              => __( 'Popular ' . $taxonomy['taxonomy_label'], 'taxonomies' ),
-                        'all_items'                  => __( $taxonomy['taxonomy_label'], 'taxonomies' ),
-                        'parent_item'                => __( 'Parent ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' ),
-                        'parent_item_colon'          => __( 'Parent ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' . ':' ),
-                        'edit_item'                  => __( 'Edit ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' ),
-                        'update_item'                => __( 'Update ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' ),
-                        'add_new_item'               => __( 'Add New ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' ),
-                        'new_item_name'              => __( 'New ' . $taxonomy['taxonomy_singular_name'], 'taxonomies' . ' Name' ),
-                        'separate_items_with_commas' => __( 'Separate ' . $taxonomy['taxonomy_label'], 'taxonomies' . ' with commas' ),
-                        'add_or_remove_items'        => __( 'Add or remove ' . $taxonomy['taxonomy_label'], 'taxonomies' ),
-                        'choose_from_most_used'      => __( 'Choose from the most used ' . $taxonomy['taxonomy_label'], 'taxonomies' ),
-                        'menu_name'                  => __( $taxonomy['taxonomy_label'], 'taxonomies' ),
+                        'name'                       => $taxonomy['taxonomy_label'],
+                        'singular_name'              => $taxonomy['taxonomy_singular_name'],
+	                                                    /* translators: 1: Taxonomy label */
+                        'search_items'               => sprintf( __( 'Search %s', 'taxonomies' ), $taxonomy['taxonomy_label'] ),
+	                                                    /* translators: 1: Taxonomy label */
+                        'popular_items'              => sprintf( __( 'Popular %s', 'taxonomies' ), $taxonomy['taxonomy_label'] ),
+                        'all_items'                  => $taxonomy['taxonomy_label'],
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'parent_item'                => sprintf( __( 'Parent %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'parent_item_colon'          => sprintf( __( 'Parent %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'edit_item'                  => sprintf( __( 'Edit %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'update_item'                => sprintf( __( 'Update %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'add_new_item'               => sprintf( __( 'Add New %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy singular name */
+                        'new_item_name'              => sprintf( __( 'New %s', 'taxonomies' ), $taxonomy['taxonomy_singular_name'] ),
+	                                                    /* translators: 1: Taxonomy label */
+                        'separate_items_with_commas' => sprintf( __( 'Separate %s with commas', 'taxonomies' ), $taxonomy['taxonomy_label'] ),
+	                                                    /* translators: 1: Taxonomy label */
+                        'add_or_remove_items'        => sprintf( __( 'Add or remove %s', 'taxonomies' ), $taxonomy['taxonomy_label'] ),
+	                                                    /* translators: 1: Taxonomy label */
+                        'choose_from_most_used'      => sprintf( __( 'Choose from the most used %s', 'taxonomies' ), $taxonomy['taxonomy_label'] ),
+                        'menu_name'                  => $taxonomy['taxonomy_label'],
                     );
 
                     $args = array(
@@ -93,7 +103,7 @@ function register_taxonomies() {
                         'show_admin_column' => $taxonomy['taxonomy_show_admin_column'],
                     );
 
-                    if ( $taxonomy['taxonomy_name'] != 'no_name' ) {
+                    if ( $taxonomy['taxonomy_name'] !== 'no_name' ) {
                         register_taxonomy( $taxonomy['taxonomy_name'], $taxonomy['taxonomy_builtin_taxonomies'], $args );
                     }
                 }

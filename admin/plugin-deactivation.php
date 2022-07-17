@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Taxonomies;
+namespace plugin\taxonomies;
 
 function deactivate() {
 
-    flush_rewrite_rules();
+	flush_rewrite_rules();
 
 }
 

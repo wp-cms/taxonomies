@@ -1,24 +1,14 @@
 <?php
 
-namespace Core\Taxonomies;
+namespace plugin\taxonomies;
 
-/**
- * Define the locale for this plugin for internationalization.
- *
- * Uses the taxonomies_i18n class in order to set the domain and to register the hook
- * with WordPress.
- *
- * @since    1.0.0
- * @access   private
- */
-
-function load_taxonomies_textdomain() {
+function load_textdomain() {
 
     load_plugin_textdomain(
-        'taxonomies',
-        'taxonomies/languages/'
+        domain: 'taxonomies',
+	    plugin_rel_path: 'taxonomies/languages'
     );
 
 }
 
-add_action( 'plugins_loaded', 'Core\PostTypes\load_textdomain' );
+add_action( 'plugins_loaded', 'plugin\taxonomies\load_textdomain' );

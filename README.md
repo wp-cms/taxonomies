@@ -1,2 +1,3 @@
-# taxonomies
-WP Plugin to allow user create custom taxonomies. 
+# Taxonomies
+
+This plugin allows you to create custom taxonomies.
